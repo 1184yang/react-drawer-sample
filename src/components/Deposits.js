@@ -1,7 +1,5 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { Typography, Link, makeStyles } from '@material-ui/core';
 import Title from './Title';
 
 function preventDefault(event) {
