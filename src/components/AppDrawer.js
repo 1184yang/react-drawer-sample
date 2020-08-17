@@ -2,16 +2,25 @@ import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Typography, CssBaseline, Container, Grid, Drawer, Paper, Box, AppBar, Toolbar, List, 
-  Divider, IconButton, Badge, Link, 
+  Typography, CssBaseline, Container, Grid, Drawer, Paper, Box, AppBar, Toolbar, List,
+  Divider, IconButton, Badge, Link, ListItem, ListItemIcon, ListItemText
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import {
+  Menu as MenuIcon,
+  MoveToInbox as InboxIcon,
+  Mail as MailIcon,
+  Dashboard as DashboardIcon,
+  ShoppingCart as ShoppingCartIcon,
+  People as PeopleIcon
+} from '@material-ui/icons';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { MainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import ProTip from './ProTip';
+import Dashboard from './Dashboard';
 
 function Copyright() {
   return (
@@ -111,15 +120,59 @@ function onItem(item) {
   console.log(item)
 }
 
-export default function Dashboard() {
+export default function AppDrawer() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [item, setItem] = React.useState('Deposits');
+
+  const listItems = {
+    mainListItems: {
+      Dashboard: {
+        text: 'Dashboard',
+        icon: <DashboardIcon />,
+        component: <Chart />,
+      },
+      Orders: {
+        text: 'Orders',
+        icon: <ShoppingCartIcon />,
+        component: <Orders />,
+      },
+      Deposits: {
+        text: 'Deposits',
+        icon: <PeopleIcon />,
+        component: <Deposits />
+      }
+    },
+    secondaryListItems: {
+
+    }
+  }
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const selectItem = (selected) => (event) => {
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    console.log(selected);
+    setItem(selected);
+    console.log(item);
+  };
+
+  const handleComponent = (anchor) => {
+    const TagName = listItems.mainListItems[anchor].component;
+    return (TagName)
+  }
+
+  const handleIcon = (anchor = 'Dashboard') => {
+    const IconName = listItems.mainListItems[anchor].icon;
+    return (<IconName />);
+  }
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -160,6 +213,25 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem button key={text} onClick={selectItem('Deposits')}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {Object.keys(listItems.mainListItems).map((text, index) => (
+            <ListItem button key={text} onClick={selectItem(text)}>
+              <ListItemIcon>{ listItems.mainListItems[text].icon}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))
+          }
+        </List>
+        <Divider />
         <List><MainListItems onItem={onItem} /></List>
         <Divider />
         <List>{secondaryListItems}</List>
@@ -184,6 +256,13 @@ export default function Dashboard() {
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Orders />
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                {
+                  handleComponent(item)
+                }
               </Paper>
             </Grid>
           </Grid>

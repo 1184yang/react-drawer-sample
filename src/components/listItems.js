@@ -7,9 +7,15 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
-export const mainListItems = (
+// function onClick(event) {
+//   event.preventDefault();
+//   onItem(event.target.textContent);
+// }
+
+export const MainListItems = ({ onItem=f=>f }) => {
+  return (
   <div>
-    <ListItem button>
+    <ListItem button onClick={(e) => {e.preventDefault(); onItem(e.target.textContent)}} >
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
@@ -40,7 +46,7 @@ export const mainListItems = (
       <ListItemText primary="Integrations" />
     </ListItem>
   </div>
-);
+)};
 
 export const secondaryListItems = (
   <div>
