@@ -25,11 +25,13 @@ const useStyles = makeStyles((theme) => ({
 export default function ProTip() {
   const classes = useStyles();
   return (
-    <Typography className={classes.root} color="textSecondary">
-      <LightBulbIcon className={classes.lightBulb} />
+    <React.Fragment>
+      <Typography className={classes.root} color="textSecondary">
+        <LightBulbIcon className={classes.lightBulb} />
       Pro tip: See more{' '}
-      <Link href="https://material-ui.com/getting-started/templates/">templates</Link> on the
+        <Link href="https://material-ui.com/getting-started/templates/">templates</Link> on the
       Material-UI documentation.
     </Typography>
+    </React.Fragment>
   );
 }

@@ -1,73 +1,64 @@
 import React from 'react';
-import { ListItem, ListItemIcon, ListItemText, ListSubheader } from '@material-ui/core';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import {
+  Dashboard as DashboardIcon,
+  ShoppingCart as ShoppingCartIcon,
+  People as PeopleIcon,
+  BarChart as BarChartIcon,
+  Layers as LayersIcon,
+  Assignment as AssignmentIcon
+} from '@material-ui/icons';
 
-// function onClick(event) {
-//   event.preventDefault();
-//   onItem(event.target.textContent);
-// }
+import Dashboard from './Dashboard';
+import Chart from './Chart';
+import Orders from './Orders';
+import Deposits from './Deposits';
+import ProTip from './ProTip';
 
-export const MainListItems = ({ onItem=f=>f }) => {
-  return (
-  <div>
-    <ListItem button onClick={(e) => {e.preventDefault(); onItem(e.target.textContent)}} >
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItem>
-  </div>
-)};
+const listItems = {
+  mainListItems: {
+    Dashboard: {
+      text: 'Dashboard',
+      icon: <DashboardIcon />,
+      component: <Dashboard />,
+    },
+    Orders: {
+      text: 'Orders',
+      icon: <ShoppingCartIcon />,
+      component: <Orders />,
+    },
+    Customers: {
+      text: 'Customers',
+      icon: <PeopleIcon />,
+      component: <Deposits />
+    },
+    Reports: {
+      text: 'Reports',
+      icon: <BarChartIcon />,
+      component: <ProTip />
+    },
+    Integrations: {
+      text: 'Integrations',
+      icon: <LayersIcon />,
+      component: <Deposits />
+    }
+  },
+  secondaryListItems: {
+    'Current month': {
+      text: 'Current month',
+      icon: <AssignmentIcon />,
+      component: <Deposits />
+    },
+    'Last quarter': {
+      text: 'Last quarter',
+      icon: <AssignmentIcon />,
+      component: <Deposits />
+    },
+    'Year-end sale': {
+      text: 'Year-end sale',
+      icon: <AssignmentIcon />,
+      component: <Deposits />
+    }
+  }
+};
 
-export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
-  </div>
-);
+export const { mainListItems, secondaryListItems} = listItems;

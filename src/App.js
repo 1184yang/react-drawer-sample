@@ -1,11 +1,10 @@
 import React from 'react';
-import Dashboard from './components/Dashboard';
-import AppDrawer from './components/AppDrawer';
+import AppMenu from './components/AppMenu';
 
 function App() {
   return (
     <div>
-      <AppDrawer />
+      <AppMenu />
     </div>
   );
 }
