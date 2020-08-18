@@ -1,17 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  Typography, CssBaseline, Container, Grid, Drawer, Paper, Box, AppBar, Toolbar, List,
-  Divider, IconButton, Badge, Link, ListItem, ListItemIcon, ListItemText, ListSubheader
+import { makeStyles, Typography, CssBaseline, Container, Grid, Drawer, Paper, Box, AppBar, 
+  Toolbar, List,  Divider, IconButton, Badge, Link, ListItem, ListItemIcon, ListItemText, ListSubheader
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import { Menu as MenuIcon, 
+         ChevronLeft as ChevronLeftIcon,
+         Notifications as NotificationsIcon 
+} from '@material-ui/icons';
 import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
 
 function Copyright() {
   return (
@@ -27,7 +23,6 @@ function Copyright() {
 }
 
 const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -119,16 +114,13 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const onItem = (value) => {
+  const onSelect = (value) => (event) => {
     setItem(value);
-    console.log(item);
   }
   const handleComponent = (anchor) => {
-    const TagName = (listItems[anchor] && listItems[anchor].component) || 'Dashboard';
+    const TagName = (listItems[anchor] && listItems[anchor].component) || listItems['Dashboard'].component;
     return (TagName)
   }
-
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
@@ -145,7 +137,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            {item}
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -169,7 +161,7 @@ export default function Dashboard() {
         <Divider />
         <List>
           {Object.keys(mainListItems).map((text, index) => (
-            <ListItem button key={text} onClick={() => onItem(text)}>
+            <ListItem button key={text} onClick={onSelect(text)}>
               <ListItemIcon>{mainListItems[text].icon}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -179,7 +171,7 @@ export default function Dashboard() {
         <List>
           <ListSubheader inset>Saved reports</ListSubheader>
           {Object.keys(secondaryListItems).map((text, index) => (
-            <ListItem button key={text} onClick={() => onItem(text)}>
+            <ListItem button key={text} onClick={onSelect(text)}>
               <ListItemIcon>{secondaryListItems[text].icon}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>

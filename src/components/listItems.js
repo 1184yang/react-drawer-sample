@@ -9,7 +9,6 @@ import {
 } from '@material-ui/icons';
 
 import Dashboard from './Dashboard';
-import Chart from './Chart';
 import Orders from './Orders';
 import Deposits from './Deposits';
 import ProTip from './ProTip';
